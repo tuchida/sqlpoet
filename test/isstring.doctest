@@ -1,0 +1,14 @@
+js> SQLPoet.isString('foo');
+true
+
+js> SQLPoet.isString(new java.lang.String('foo'));
+true
+
+js> SQLPoet.isString(true);
+false
+
+js> SQLPoet.isString(1);
+false
+
+js> SQLPoet.isString([]);
+false

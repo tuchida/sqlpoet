@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="SQLPoet" default="test" basedir=".">
+
+  <property file="build.properties"/>
+
+  <target name="test">
+    <property name="jarfile" location="${rhino.jar}"/>
+    <java jar="${jarfile}" failonerror="true" fork="true">
+      <arg line="-f sqlpoet.js"/>
+      <arg line="-e &quot;var doctestpath = 'test';&quot;"/>
+      <arg line="-f test/test.js"/>
+    </java>
+  </target>
+
+</project>

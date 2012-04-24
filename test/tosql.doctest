@@ -1,0 +1,37 @@
+js> SQLPoet.create().SELECT.sysdate.FROM.dual.toSql();
+SELECT sysdate FROM dual
+
+js> var tableName = 'employ';
+js> SQLPoet.create()
+  >   .SELECT['COUNT(*)'].AS('cnt')
+  >   .FROM.user_tables
+  >   .WHERE.table_name['='].$(tableName)
+  > .toSql();
+SELECT COUNT(*)AS cnt FROM user_tables WHERE table_name = 'employ'
+
+js> var args = new java.util.HashMap();
+js> SQLPoet.create(args)
+  >   .SELECT.$('').AS.id_
+  >          .$('atypes/ariel/schedule').AS.container_
+  >          .title
+  >   .FROM.$table('W8VXI73B')
+  >   .WHERE.creator['='].$userId(123)
+  > .toSql();
+SELECT '' AS id,'atypes/ariel/schedule' AS container,title FROM ${TABLE_NAME(W8VXI73B)} WHERE creator = ${VAR(userId, int)}
+
+js> args.get('userId')[0]
+123
+
+js> SQLPoet.create()
+  >   .SELECT.id_
+  >          .title_
+  >          .container
+  >   .FROM.basedataset.bds
+  >   .INNER.JOIN['('](SQLPoet.create()
+  >                 .SELECT['*']
+  >                 .FROM.$table('W8VXI73B')
+  >                 .WHERE.code['='].$('foo')
+  >                )[')'].ut
+  >   .ON['bds.id=ut.id']
+  > .toSql();
+SELECT id,title,container FROM basedataset bds INNER JOIN(SELECT * FROM ${TABLE_NAME(W8VXI73B)} WHERE code = 'foo')ut ON bds.id=ut.id

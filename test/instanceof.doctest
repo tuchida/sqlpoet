@@ -1,0 +1,18 @@
+js> var sp = SQLPoet.create();
+  > sp instanceof SQLPoet;
+true
+
+js> sp instanceof Object
+true
+
+js> sp instanceof org.mozilla.javascript.Scriptable
+false
+
+js> sp.isString instanceof SQLPoet;
+true
+
+js> sp.__proto__ instanceof SQLPoet;
+true
+
+js> sp.prototype instanceof SQLPoet;  // === call.prototype
+false

@@ -1,0 +1,20 @@
+js> SQLPoet.isNumber(1);
+true
+
+js> SQLPoet.isNumber(java.lang.Integer.valueOf(0));
+true
+
+js> SQLPoet.isNumber(NaN);
+true
+
+js> SQLPoet.isNumber(-0);
+true
+
+js> SQLPoet.isNumber(true);
+false
+
+js> SQLPoet.isNumber('foo');
+false
+
+js> SQLPoet.isNumber([]);
+false
