@@ -1,0 +1,26 @@
+js> var args = new java.util.HashMap();
+js> SQLPoet.create(args).$stringList('id', 'id-param', 'test').toSql();
+${STRING_LIST(id-param, id)}
+
+js> args.get('id-param')[0]
+test
+
+js> var args = new java.util.HashMap();
+js> SQLPoet.create(args).$intList('code', {
+  >   argName: 'code-contain',
+  >   value: 1234
+  > }).toSql();
+${INT_LIST(code-contain, code)}
+
+js> args.get('code-contain')[0]
+1234
+
+js> var args = new java.util.HashMap();
+js> SQLPoet.create(args).$list('id', 'id-param', 'test').toSql();
+${LIST(id-param, string, id)}
+
+js> args.get('id-param')[0]
+test
+
+js> SQLPoet.create(args).$baseTable().toSql();
+${BASE_TABLE()}
