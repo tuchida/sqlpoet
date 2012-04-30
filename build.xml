@@ -9,6 +9,7 @@
       <arg line="-f sqlpoet.js"/>
       <arg line="-e &quot;var doctestpath = 'test';&quot;"/>
       <arg line="-f test/test.js"/>
+      <arg line="-debug"/>
     </java>
   </target>
 

@@ -10,13 +10,13 @@ js> SQLPoet.create()
 SELECT COUNT(*)AS cnt FROM user_tables WHERE table_name = 'employ'
 
 js> var args = new java.util.HashMap();
-js> SQLPoet.create(args)
+js> SQLPoet.create()
   >   .SELECT.$('').AS.id_
   >          .$('atypes/ariel/schedule').AS.container_
   >          .title
   >   .FROM.$table('W8VXI73B')
   >   .WHERE.creator['='].$userId(123)
-  > .toSql();
+  > .toSql(args);
 SELECT '' AS id,'atypes/ariel/schedule' AS container,title FROM ${TABLE_NAME(W8VXI73B)} WHERE creator = ${VAR(userId, int)}
 
 js> args.get('userId')[0]
@@ -32,6 +32,20 @@ js> SQLPoet.create()
   >                 .FROM.$table('W8VXI73B')
   >                 .WHERE.code['='].$('foo')
   >                )[')'].ut
-  >   .ON['bds.id=ut.id']
+  >   .ON['bds.id = ut.id']
   > .toSql();
-SELECT id,title,container FROM basedataset bds INNER JOIN(SELECT * FROM ${TABLE_NAME(W8VXI73B)} WHERE code = 'foo')ut ON bds.id=ut.id
+SELECT id,title,container FROM basedataset bds INNER JOIN(SELECT * FROM ${TABLE_NAME(W8VXI73B)} WHERE code = 'foo')ut ON bds.id = ut.id
+
+js> var args = new java.util.HashMap();
+js> var s = SQLPoet.create()
+  >   .SELECT('id, name')
+  >   .FROM.$table('W8VXI73B')
+  >   .WHERE.code['='].$var('test');
+js> SQLPoet.create()
+  >   .SELECT('ut.name, bds.container')
+  >   .FROM.basedataset.bds
+  >   .INNER.join['('](s)[')'].ut
+  >   .ON['bds.id = ut.id']
+  >   .WHERE.creator['='].$var(1234)
+  > .toSql(args);
+SELECT ut.name, bds.container FROM basedataset bds INNER join(SELECT id, name FROM ${TABLE_NAME(W8VXI73B)} WHERE code = ${VAR($arg-0, string)})ut ON bds.id = ut.id WHERE creator = ${VAR($arg-1, int)}
